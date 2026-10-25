@@ -16,16 +16,16 @@ export function useRequest() {
 }
 
 export const Panel = ({ title, children, className = "" }) => (
-  <section className={`rounded-md border border-line bg-paper p-5 ${className}`}>
-    {title && <h2 className="mb-3 text-xl font-bold text-steel">{title}</h2>}
-    {children}
+  <section className={`rounded-sm border border-line bg-paper ${className}`}>
+    {title && <h2 className="border-b border-line bg-tint px-5 py-2.5 text-base text-navy">{title}</h2>}
+    <div className="p-5">{children}</div>
   </section>
 );
 
-const inputCls = "w-full rounded border border-line bg-white px-3 py-2 text-base focus:border-safety";
+const inputCls = "w-full rounded-sm border border-line bg-white px-3 py-2 text-base text-navy placeholder:text-mute/70 focus:border-blue";
 export const Field = ({ label, hint, children }) => (
   <label className="block">
-    <span className="mb-1 block text-sm font-semibold text-steel">{label}</span>
+    <span className="mb-1 block text-sm font-semibold text-navy">{label}</span>
     {children}
     {hint && <span className="mt-1 block text-sm text-mute">{hint}</span>}
   </label>
@@ -41,8 +41,8 @@ export const Textarea = (p) => <textarea className={inputCls} {...p} />;
 export const Button = ({ loading, children, secondary, ...p }) => (
   <button
     disabled={loading || p.disabled}
-    className={`inline-flex items-center gap-2 rounded px-4 py-2 font-semibold disabled:opacity-60 ${
-      secondary ? "border border-steel text-steel hover:bg-concrete" : "bg-safety-d text-white hover:bg-safety"}`}
+    className={`inline-flex items-center gap-2 rounded-sm px-4 py-2 font-semibold disabled:opacity-50 ${
+      secondary ? "border border-navy bg-paper text-navy hover:bg-tint" : "btn bg-marker text-navy hover:bg-marker-d"}`}
     {...p}
   >
     {loading && <Spinner small />}{children}
@@ -55,11 +55,11 @@ export const Spinner = ({ small }) => (
 );
 
 export const ErrorBox = ({ message }) => message ? (
-  <div role="alert" className="rounded border border-bad bg-red-50 px-4 py-3 text-bad">{message}</div>
+  <div role="alert" className="rounded-sm border border-l-4 border-bad bg-red-50 px-4 py-3 text-bad">{message}</div>
 ) : null;
 
 export const Notice = ({ children }) => children ? (
-  <div role="status" className="rounded border border-warn bg-amber-50 px-4 py-3 text-warn">{children}</div>
+  <div role="status" className="rounded-sm border border-l-4 border-warn bg-amber-50 px-4 py-3 text-warn">{children}</div>
 ) : null;
 
 const MODE = {
@@ -71,27 +71,27 @@ export function ResultMeta({ result }) {
   const [label, cls] = MODE[result.mode] || MODE.ai;
   return (
     <div className="mb-3 space-y-2">
-      <span className={`inline-block rounded px-2 py-0.5 text-sm font-semibold ${cls}`}>{label}</span>
+      <span className={`inline-block rounded-sm px-2 py-0.5 text-sm font-semibold ${cls}`}>{label}</span>
       {arr(result.notes).map((n, i) => <p key={i} className="text-sm text-mute">{n}</p>)}
     </div>
   );
 }
 
 export const List = ({ items }) => (
-  <ul className="list-disc space-y-1 pl-5">{arr(items).map((t, i) => <li key={i}>{text(t)}</li>)}</ul>
+  <ul className="mt-2 list-disc space-y-1 pl-5 marker:text-blue">{arr(items).map((t, i) => <li key={i}>{text(t)}</li>)}</ul>
 );
 
 /** Heading + bullet list; renders nothing when there are no items. */
 export const Block = ({ title, items, note }) => arr(items).length ? (
   <div>
-    <h3 className="text-lg font-bold text-steel">{title}</h3>
-    {note && <p className="mb-1 text-sm text-mute">{note}</p>}
+    <h3 className="border-b border-line pb-1 text-lg text-navy">{title}</h3>
+    {note && <p className="mt-1 mb-1 text-sm text-mute">{note}</p>}
     <List items={items} />
   </div>
 ) : null;
 
 export const Empty = ({ children }) => (
-  <div className="rounded-md border border-dashed border-line p-6 text-mute">{children}</div>
+  <div className="rounded-sm border border-dashed border-mute/50 bg-tint/60 p-6 text-mute">{children}</div>
 );
 
 export const inr = (n) => (n === null || n === undefined || Number.isNaN(Number(n)) ? "n/a" : `₹ ${Number(n).toLocaleString("en-IN")}`);
@@ -104,7 +104,7 @@ export class ErrorBoundary extends Component {
   componentDidCatch(err) { console.error("UI render error", err); }
   render() {
     return this.state.failed ? (
-      <div role="alert" className="rounded border border-bad bg-red-50 p-4 text-bad">
+      <div role="alert" className="rounded-sm border border-l-4 border-bad bg-red-50 p-4 text-bad">
         Something went wrong while showing this result. Please try again.{" "}
         <button className="underline" onClick={() => this.setState({ failed: false })}>Dismiss</button>
       </div>

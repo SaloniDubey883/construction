@@ -45,7 +45,7 @@ export default function Planning() {
         <Panel>
           <ResultMeta result={result} />
           <Notice>{d.ai_error ? `Material and cost estimates could not be generated: ${d.ai_error}` : null}</Notice>
-          <p className="mt-2 font-display text-3xl font-bold text-steel">{d.total_working_days} working days</p>
+          <p className="mt-2 font-display text-3xl font-bold text-navy">{d.total_working_days} working days</p>
           <p className="text-mute">{d.start_date} to {d.finish_date}</p>
           {d.total_cost_low_inr !== undefined && (
             <p className="mt-2"><strong>Approximate total cost:</strong> {inr(d.total_cost_low_inr)} to {inr(d.total_cost_high_inr)}
@@ -56,12 +56,12 @@ export default function Planning() {
             <div style={{ height: 60 + chart.length * 36 }} role="img" aria-label="Gantt-style timeline of construction phases">
               <ResponsiveContainer>
                 <BarChart data={chart} layout="vertical" margin={{ left: 10, right: 20 }}>
-                  <CartesianGrid horizontal={false} stroke="#d3d6d3" />
+                  <CartesianGrid horizontal={false} stroke="#bccadf" />
                   <XAxis type="number" />
                   <YAxis type="category" dataKey="name" width={200} tick={{ fontSize: 13 }} />
                   <Tooltip formatter={(v, n) => (n === "days" ? [`${v} days`, "Duration"] : null)} />
                   <Bar dataKey="offset" stackId="a" fill="transparent" isAnimationActive={false} />
-                  <Bar dataKey="days" stackId="a" fill="#e4580b" isAnimationActive={false} />
+                  <Bar dataKey="days" stackId="a" fill="#1b4db1" isAnimationActive={false} />
                 </BarChart>
               </ResponsiveContainer>
             </div>

@@ -24,18 +24,18 @@ export default function Chat({ endpoint, placeholder, suggestions = [] }) {
   };
 
   return (
-    <div className="rounded-md border border-line bg-paper">
+    <div className="rounded-sm border border-line bg-paper">
       <div className="max-h-[28rem] min-h-48 space-y-3 overflow-y-auto p-4" aria-live="polite">
         {msgs.length === 0 && (
           <div className="space-y-2 text-mute">
             <p>Ask a question to start. Try:</p>
             <div className="flex flex-wrap gap-2">
               {suggestions.map((s) => (
-                <button key={s} onClick={() => send(s)} className="rounded border border-line bg-white px-3 py-1 text-left text-ink hover:border-safety">{s}</button>))}
+                <button key={s} onClick={() => send(s)} className="rounded-sm border border-line bg-white px-3 py-1 text-left text-ink hover:border-blue">{s}</button>))}
             </div>
           </div>)}
         {msgs.map((m, i) => (
-          <div key={i} className={m.role === "user" ? "ml-auto max-w-[85%] rounded bg-steel px-3 py-2 text-white" : "max-w-[85%] rounded border border-line bg-white px-3 py-2"}>
+          <div key={i} className={m.role === "user" ? "ml-auto max-w-[85%] rounded-sm bg-navy px-3 py-2 text-white" : "max-w-[85%] rounded-sm border border-line bg-white px-3 py-2"}>
             {m.meta && <ResultMeta result={m.meta} />}
             <p className="whitespace-pre-wrap">{m.content}</p>
           </div>))}
